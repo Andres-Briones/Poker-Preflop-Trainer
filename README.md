@@ -14,7 +14,7 @@ This is a standalone web application built with Flask that helps train poker pre
 ## Installation and Usage:
 
   1.  From the releases, download the binary suitable for your operating system. (Only available for linux at the moment)
-  2.  Run the downloaded executable file: PreFlopTrainer.
+  2.  Run the downloaded executable file: PokerPreflopTrainer.
   3.  The app will automatically open in your browser. If it doesn’t, open your browser and navigate to http://127.0.0.1:5000.
   4.  Click "Generate Hand" to start, and enter the bucket you think the hand belongs to.
 
@@ -53,7 +53,7 @@ This is a standalone web application built with Flask that helps train poker pre
 
 1. Run the Flask app:
     ```bash
-    python PreFlopTrainer.py
+    python PokerPreflopTrainer.py
     ```
 
 2. The app will automatically open in your web browser. If it doesn't, manually open your browser and navigate to `http://127.0.0.1:5000`.
@@ -71,12 +71,12 @@ To create a standalone executable:
 
 2. Run the following command to bundle the app into a single executable:
     ```bash
-    pyinstaller --onefile --add-data "data:data" --add-data "templates:templates" PreFlopTrainer.py
+    pyinstaller --onefile --add-data "data:data" --add-data "templates:templates" PokerPreflopTrainer.py
     ```
 
 3. The executable will be created in the `dist/` directory. You can now run the app without requiring a Python installation:
     ```bash
-    ./dist/PreFlopTrainer
+    ./dist/PokerPreflopTrainer
     ```
 
 ### License
