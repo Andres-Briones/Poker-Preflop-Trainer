@@ -15,6 +15,9 @@ This is a standalone web application built with Flask that helps train poker pre
 
 - **Python 3.x**
 - **Flask**
+- **Pillow**
+- **Pandas**
+- **Numpy**
 - **PyInstaller** (if you want to package the app into a standalone executable)
 
 ### Installation
