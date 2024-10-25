@@ -19,7 +19,7 @@ def resource_path(relative_path):
 
 
 # Load hand classifications from the CSV (adjust to use resource_path)
-csv_path = resource_path('percentiles_deck.csv')
+csv_path = resource_path('data/tables/percentiles_and_buckets.csv')
 hand_data = pd.read_csv(csv_path)
 
 app = Flask(__name__)
@@ -90,7 +90,7 @@ def index():
         
         # Save the new image to the temporary directory
         image_path = os.path.join(temp_dir, 'hand.png')
-        cards_path = resource_path('cards/')
+        cards_path = resource_path('data/cards/')
         make_poker_hand_images(hand, image_path, cards_path)
 
         # Get the correct bucket and hand_class for this hand
