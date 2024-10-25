@@ -51,7 +51,7 @@
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             padding: 30px;
-            max-width: 800px;
+            max-width: 900px;
             width: 100%;
             text-align: center;
             margin-bottom: 30px;
@@ -59,7 +59,7 @@
         }
 
         h1 {
-            font-size: 2.5rem; 
+            font-size: 2rem; 
             margin-bottom: 30px;
         }
 
@@ -74,7 +74,7 @@
         }
 
         label {
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             margin-right: 10px;
         }
 
@@ -114,7 +114,7 @@
         }
 
         p {
-            font-size: 1.5rem; /* Increased result message font size */
+            font-size: 1.3rem;
             margin-top: 30px;
         }
 
@@ -124,7 +124,7 @@
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             padding: 20px;
-            max-width: 800px;
+            max-width: 900px;
             width: 100%;
             text-align: center;
             transition: background-color 0.3s ease;
@@ -158,7 +158,7 @@
             padding: 10px 20px;
             border-radius: 5px;
             cursor: pointer;
-            font-size: 1.25rem; /* Increased font size for the theme switcher */
+            font-size: 1.3rem; 
             transition: background-color 0.3s ease;
         }
 
@@ -203,11 +203,11 @@
 </head>
 <body>
     <!-- Theme switcher button -->
-    <div class="theme-switcher" onclick="toggleTheme()">Switch Theme</div>
+    <div class="theme-switcher" onclick="toggleTheme()">Switch theme</div>
 
     <!-- Main content area -->
     <div class="container">
-        <h1>Guess the Bucket for the Hand</h1>
+        <h1>In which bucket the following hand belongs ?</h1>
         {% if hand_image %}
             <img src="/card-image" alt="Poker Hand">
             
@@ -216,18 +216,18 @@
                     <input type="hidden" name="hand_class" value="{{ hand_class }}">
                     <input type="hidden" name="correct_bucket" value="{{ correct_bucket }}">
                     <input type="hidden" name="hand_image" value="{{ hand_image }}">
-                    <label for="bucket">Enter the Bucket for the hand:</label>
+                    <label for="bucket">Enter the bucket for the hand:</label>
                     <input type="text" id="bucket" name="bucket" required>
                     <button type="submit">Submit</button>
                 </form>
             {% else %}
                 <form method="POST">
-                    <button type="submit" name="generate_hand">Generate New Hand</button>
+                    <button type="submit" name="generate_hand">Generate new hand</button>
                 </form>
             {% endif %}
         {% else %}
             <form method="POST">
-                <button type="submit" name="generate_hand">Generate Hand</button>
+                <button type="submit" name="generate_hand">Generate hand</button>
             </form>
         {% endif %}
 
@@ -238,7 +238,7 @@
 
     <!-- Bucket list area (horizontally centered) -->
     <div class="bucket-list">
-        <h2>Possible Buckets</h2>
+        <h2>Possible buckets</h2>
         <ul>
             {% for value in bucket_values %}
                 <li>{{ value }}</li>
