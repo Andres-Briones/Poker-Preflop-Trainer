@@ -2,7 +2,7 @@
 
 This is a standalone web application built with Flask that helps train poker pre-flop ranges. The app randomly generates two poker cards, and the user must guess the correct bucket (classification) of the hand based on pre-defined classifications.
 
-![screenshot][screenshots/screenshot.png]
+![screenshot](screenshots/screenshot.png)
 
 ## Features
 
