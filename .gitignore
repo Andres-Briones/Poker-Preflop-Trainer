@@ -1,0 +1,28 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment folder
+venv/
+
+# PyInstaller build directories
+build/
+dist/
+
+# PyInstaller .spec files
+*.spec
+
+# Log files
+*.log
+
+# Temporary files
+temp/
+*.tmp
+
+# Flask debug logs
+*.log
+
+# OS-specific files
+.DS_Store
+Thumbs.db

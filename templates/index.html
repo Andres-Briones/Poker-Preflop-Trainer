@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poker Hand Classifier</title>
+    <style>
+        /* Basic reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Light theme variables */
+        :root {
+            --background-color: #f4f4f4;
+            --text-color: #333;
+            --container-background: #fff;
+            --button-bg: #007BFF;
+            --button-text: #fff;
+            --button-hover-bg: #0056b3;
+        }
+
+        /* Dark theme variables */
+        .dark-mode {
+            --background-color: #1e1e1e;
+            --text-color: #f4f4f4;
+            --container-background: #333;
+            --button-bg: #444;
+            --button-text: #fff;
+            --button-hover-bg: #666;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            font-size: 1.3rem;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Container for content */
+        .container {
+            background-color: var(--container-background);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            max-width: 800px;
+            width: 100%;
+            text-align: center;
+            margin-bottom: 30px;
+            transition: background-color 0.3s ease;
+        }
+
+        h1 {
+            font-size: 2.5rem; 
+            margin-bottom: 30px;
+        }
+
+        img {
+            width: 50%; 
+            max-width: 100%;
+            margin-bottom: 30px;
+        }
+
+        form {
+            margin-bottom: 30px;
+        }
+
+        label {
+            font-size: 1.3rem;
+            margin-right: 10px;
+        }
+
+        input[type="text"] {
+            padding: 7px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 100%;
+            max-width: 100px;
+            font-size: 1.3rem;
+            text-align: center;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: var(--button-bg);
+            color: var(--button-text);
+            font-size: 1.3rem;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: var(--button-hover-bg);
+        }
+
+        /* Result messages styling */
+        .correct {
+            color: green;
+        }
+
+        .incorrect {
+            color: red;
+        }
+
+        p {
+            font-size: 1.5rem; /* Increased result message font size */
+            margin-top: 30px;
+        }
+
+        /* Bucket list styling */
+        .bucket-list {
+            background-color: var(--container-background);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            max-width: 800px;
+            width: 100%;
+            text-align: center;
+            transition: background-color 0.3s ease;
+        }
+
+        .bucket-list h2 {
+            font-size: 2rem; 
+            margin-bottom: 20px;
+        }
+
+        .bucket-list ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .bucket-list ul li {
+            margin: 0 15px; 
+            font-size: 1.5rem;
+        }
+
+        /* Theme switcher button */
+        .theme-switcher {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: var(--button-bg);
+            color: var(--button-text);
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.25rem; /* Increased font size for the theme switcher */
+            transition: background-color 0.3s ease;
+        }
+
+        .theme-switcher:hover {
+            background-color: var(--button-hover-bg);
+        }
+    </style>
+
+    <script>
+        // Immediately apply saved theme before the page fully loads
+        (function() {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                document.documentElement.classList.add('dark-mode');
+            }
+        })();
+
+        // Toggle between light and dark mode
+        function toggleTheme() {
+            document.documentElement.classList.toggle('dark-mode'); // Use documentElement for better consistency
+            const isDarkMode = document.documentElement.classList.contains('dark-mode');
+            localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+        }
+
+        // Load additional functionality after page load
+        window.onload = function() {
+            const inputField = document.getElementById('bucket');
+            if (inputField) {
+                inputField.focus();
+            }
+
+            // Add "Enter" key functionality for generating new hand
+            document.addEventListener('keydown', function(event) {
+                const generateHandButton = document.querySelector('button[name="generate_hand"]');
+                if (event.key === 'Enter' && generateHandButton) {
+                    event.preventDefault();  // Prevent form submission on Enter
+                    generateHandButton.click();  // Trigger button click
+                }
+            });
+        };
+    </script>
+</head>
+<body>
+    <!-- Theme switcher button -->
+    <div class="theme-switcher" onclick="toggleTheme()">Switch Theme</div>
+
+    <!-- Main content area -->
+    <div class="container">
+        <h1>Guess the Bucket for the Hand</h1>
+        {% if hand_image %}
+            <img src="/card-image" alt="Poker Hand">
+            
+            {% if show_input %}
+                <form method="POST">
+                    <input type="hidden" name="hand_class" value="{{ hand_class }}">
+                    <input type="hidden" name="correct_bucket" value="{{ correct_bucket }}">
+                    <input type="hidden" name="hand_image" value="{{ hand_image }}">
+                    <label for="bucket">Enter the Bucket for the hand:</label>
+                    <input type="text" id="bucket" name="bucket" required>
+                    <button type="submit">Submit</button>
+                </form>
+            {% else %}
+                <form method="POST">
+                    <button type="submit" name="generate_hand">Generate New Hand</button>
+                </form>
+            {% endif %}
+        {% else %}
+            <form method="POST">
+                <button type="submit" name="generate_hand">Generate Hand</button>
+            </form>
+        {% endif %}
+
+        {% if result %}
+            <p class="{{ result_class }}">{{ result }}</p>
+        {% endif %}
+    </div>
+
+    <!-- Bucket list area (horizontally centered) -->
+    <div class="bucket-list">
+        <h2>Possible Buckets</h2>
+        <ul>
+            {% for value in bucket_values %}
+                <li>{{ value }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
