@@ -66,7 +66,7 @@ To create a standalone executable:
 
 3. The executable will be created in the `dist/` directory. You can now run the app without requiring a Python installation:
     ```bash
-    ./dist/PreFlopTrainer  # On Windows use dist\PreFlopTrainer.exe
+    ./dist/PreFlopTrainer
     ```
 
 ### License
@@ -76,3 +76,4 @@ This project is licensed under the MIT License. See the LICENSE file for details
 ### Acknowledgements
   - **Flask** - A lightweight WSGI web application framework.
   - **PyInstaller** - A tool to bundle Python applications into standalone executables.
+  - **5-Card_Poker_Hand_Simulator_and_Visualizer** The cards images and code to generate 2-cards visualization was inspired by the following project : https://github.com/SJMagaziner/5-Card_Poker_Hand_Simulator_and_Visualizer
